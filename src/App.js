@@ -2,8 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
-import Books from './components/Books';
-import BooksSearch from './components/BooksSearch';
+import ListBooks from './components/ListBooks';
 
 class BooksApp extends React.Component {
 
@@ -20,6 +19,10 @@ class BooksApp extends React.Component {
     }
 
     componentDidMount() {
+        this.getBooks();
+    }
+
+    getBooks = () => {
         BooksAPI.getAll().then((books) => {
             this.setState({books})
         });
@@ -47,6 +50,10 @@ class BooksApp extends React.Component {
         });
     }
 
+    goBack = () => {
+        this.getBooks();
+        this.setState({showSearchPage: false});
+    }
 
     render() {
         return (
@@ -54,7 +61,7 @@ class BooksApp extends React.Component {
                 {this.state.showSearchPage ? (
                     <div className="search-books">
                         <div className="search-books-bar">
-                            <a className="close-search" onClick={() => this.setState({showSearchPage: false})}>Close</a>
+                            <a className="close-search" onClick={() => this.goBack()}>Close</a>
                             <div className="search-books-input-wrapper">
                                 <input type="text"
                                        placeholder="Search by title or author"
@@ -63,9 +70,7 @@ class BooksApp extends React.Component {
                             </div>
                         </div>
                         <div className="search-books-results">
-
-                            //TODO: mover para book, livro por livro
-                            <BooksSearch title="Search Results" books={this.state.searchResult} changeCategory={this.changeCategory}/>
+                            <ListBooks title="Result of Search: " searchResult={this.state.searchResult} books={this.state.books} shelf="" changeCategory={this.changeCategory}/>
                         </div>
                     </div>
                 ) : (
@@ -75,9 +80,9 @@ class BooksApp extends React.Component {
                         </div>
                         <div className="list-books-content">
                             <div>
-                                <Books title="Currently Reading" books={this.state.books} shelf="currentlyReading" changeCategory={this.changeCategory}/>
-                                <Books title="Want to Read" books={this.state.books} shelf="wantToRead" changeCategory={this.changeCategory}/>
-                                <Books title="Read" books={this.state.books} shelf="read" changeCategory={this.changeCategory}/>
+                                <ListBooks title="Currently Reading" books={this.state.books} shelf="currentlyReading" changeCategory={this.changeCategory}/>
+                                <ListBooks title="Want to Read" books={this.state.books} shelf="wantToRead" changeCategory={this.changeCategory}/>
+                                <ListBooks title="Read" books={this.state.books} shelf="read" changeCategory={this.changeCategory}/>
                             </div>
                         </div>
                         <div className="open-search">
