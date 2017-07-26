@@ -40,7 +40,7 @@ class List extends React.Component {
                         ) : (
 
                             this.props.searchResult.map((book, key) => {
-                                const bookSelected = this.props.books.find(item => item.id == book.id);
+                                const bookSelected = this.props.books.find(item => item.id === book.id);
                                 if(bookSelected){
                                     console.log(bookSelected.shelf, bookSelected.title);
                                     return (
