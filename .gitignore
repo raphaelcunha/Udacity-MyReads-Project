@@ -1,3 +1,10 @@
+/.idea
+.idea
 node_modules
 yarn.lock
 .DS_Store
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/reactnd-project-myreads-starter.iml
+.idea/workspace.xml
