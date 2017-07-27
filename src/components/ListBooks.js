@@ -13,10 +13,6 @@ class List extends React.Component {
         changeCategory: PropTypes.func.isRequired,
     };
 
-    state = {
-        value: this.props.shelf
-    };
-
     change = (book, shelf) => {
         this.props.changeCategory(book, shelf);
     };
