@@ -45,7 +45,15 @@ class BooksApp extends React.Component {
         this.setState({query: query});
         BooksAPI.search(query).then((searchResult) => {
             if(searchResult.length){
-                this.setState({searchResult})
+                this.setState((state) => ({
+                    searchResult: searchResult.map((result) => {
+                        const book = this.state.books.find(book =>  result.id === book.id);
+                        if(book !== undefined){
+                            result.shelf = book.shelf;
+                        }
+                        return result;
+                    })
+                }));
             }
         });
     }
@@ -70,7 +78,7 @@ class BooksApp extends React.Component {
                             </div>
                         </div>
                         <div className="search-books-results">
-                            <ListBooks title="Result of Search: " searchResult={this.state.searchResult} books={this.state.books} shelf="" changeCategory={this.changeCategory}/>
+                            <ListBooks title="Result of Search:" searchResult={this.state.searchResult} books={this.state.books} shelf="" changeCategory={this.changeCategory}/>
                         </div>
                     </div>
                 ) : (

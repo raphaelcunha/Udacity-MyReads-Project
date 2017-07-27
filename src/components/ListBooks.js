@@ -36,27 +36,12 @@ class List extends React.Component {
                                         <Book book={book} key={key} shelf={book.shelf} changeCategory={this.change}/>
                                     </div>
                                 ))
-
                         ) : (
-
-                            this.props.searchResult.map((book, key) => {
-                                const bookSelected = this.props.books.find(item => item.id === book.id);
-                                if(bookSelected){
-                                    console.log(bookSelected.shelf, bookSelected.title);
-                                    return (
-                                        <div key={key}>
-                                            <Book book={book} key={key} shelf={bookSelected.shelf} changeCategory={this.change}/>
-                                        </div>
-                                    )
-                                }else {
-                                    return (
-                                        <div key={key}>
-                                            <Book book={book} key={key} shelf={book.shelf} changeCategory={this.change}/>
-                                        </div>
-                                    )
-                                }
-
-                            })
+                            this.props.searchResult.map((book, key) => (
+                                <div key={key}>
+                                    <Book book={book} key={key} shelf={book.shelf} changeCategory={this.change}/>
+                                </div>
+                            ))
                         )}
                     </ol>
                 </div>
