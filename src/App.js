@@ -1,4 +1,6 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
@@ -58,30 +60,10 @@ class BooksApp extends React.Component {
         });
     }
 
-    goBack = () => {
-        this.getBooks();
-        this.setState({showSearchPage: false});
-    }
-
     render() {
         return (
-            <div className="app">
-                {this.state.showSearchPage ? (
-                    <div className="search-books">
-                        <div className="search-books-bar">
-                            <a className="close-search" onClick={() => this.goBack()}>Close</a>
-                            <div className="search-books-input-wrapper">
-                                <input type="text"
-                                       placeholder="Search by title or author"
-                                       onChange={(event) => this.updateQuery(event.target.value)}
-                                />
-                            </div>
-                        </div>
-                        <div className="search-books-results">
-                            <ListBooks title="Result of Search:" searchResult={this.state.searchResult} books={this.state.books} shelf="" changeCategory={this.changeCategory}/>
-                        </div>
-                    </div>
-                ) : (
+            <div>
+                <Route exact path='/' render={() => (
                     <div className="list-books">
                         <div className="list-books-title">
                             <h1>MyReads</h1>
@@ -94,10 +76,26 @@ class BooksApp extends React.Component {
                             </div>
                         </div>
                         <div className="open-search">
-                            <a onClick={() => this.setState({showSearchPage: true})}>Add a book</a>
+                            <Link to="/search">Close</Link>
                         </div>
                     </div>
-                )}
+                )}/>
+                <Route path='/search' render={({ history }) => (
+                    <div className="search-books">
+                        <div className="search-books-bar">
+                            <Link className="close-search" to="/" onClick={this.getBooks()}>Close</Link>
+                            <div className="search-books-input-wrapper">
+                                <input type="text"
+                                       placeholder="Search by title or author"
+                                       onChange={(event) => this.updateQuery(event.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="search-books-results">
+                            <ListBooks title="Result of Search:" searchResult={this.state.searchResult} books={this.state.books} shelf="" changeCategory={this.changeCategory}/>
+                        </div>
+                    </div>
+                )}/>
             </div>
         )
     }
