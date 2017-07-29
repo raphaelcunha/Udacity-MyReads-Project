@@ -1,17 +1,12 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import {Route} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 import ListBooks from './components/ListBooks';
 
 class BooksApp extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.changeCategory = this.changeCategory.bind(this);
-    }
 
     state = {
         books: [],
@@ -30,7 +25,7 @@ class BooksApp extends React.Component {
         });
     }
 
-    changeCategory(book, shelf) {
+    changeCategory = (book, shelf) => {
         BooksAPI.update(book, shelf).then(() => {
             this.setState((state) => ({
                 books: state.books.filter((c) => {
@@ -46,11 +41,11 @@ class BooksApp extends React.Component {
     updateQuery = (query) => {
         this.setState({query: query});
         BooksAPI.search(query).then((searchResult) => {
-            if(searchResult.length){
+            if (searchResult.length) {
                 this.setState((state) => ({
                     searchResult: searchResult.map((result) => {
-                        const book = this.state.books.find(book =>  result.id === book.id);
-                        if(book !== undefined){
+                        const book = this.state.books.find(book => result.id === book.id);
+                        if (book !== undefined) {
                             result.shelf = book.shelf;
                         }
                         return result;
@@ -80,10 +75,10 @@ class BooksApp extends React.Component {
                         </div>
                     </div>
                 )}/>
-                <Route path='/search' render={({ history }) => (
+                <Route path='/search' render={({history}) => (
                     <div className="search-books">
                         <div className="search-books-bar">
-                            <Link className="close-search" to="/" onClick={this.getBooks()}>Close</Link>
+                            <Link className="close-search" to="/" onClick={this.getBooks}>Close</Link>
                             <div className="search-books-input-wrapper">
                                 <input type="text"
                                        placeholder="Search by title or author"

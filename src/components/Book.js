@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-class ListBooks extends React.Component {
+class Book extends React.Component {
 
     static propTypes = {
         book: PropTypes.object.isRequired,
@@ -38,4 +38,4 @@ class ListBooks extends React.Component {
     }
 }
 
-export default ListBooks;
+export default Book;

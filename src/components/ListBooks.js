@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Book from './Book';
 
-class List extends React.Component {
+class ListBooks extends React.Component {
 
     static propTypes = {
         title: PropTypes.string.isRequired,
@@ -47,4 +47,4 @@ class List extends React.Component {
     }
 }
 
-export default List;
+export default ListBooks;
